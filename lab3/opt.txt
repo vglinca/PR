@@ -1,0 +1,7 @@
+Allow:
+
+GET
+HEAD
+POST
+TRACE
+OPTIONS
