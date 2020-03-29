@@ -23,17 +23,28 @@ namespace EmailClientSMTP
 {
 	public partial class RetriveMail : Form
 	{
-		List<MimeMessage> retrievedMessages = null;
-		DateTime _yearWhenSent;
-		string _emailSender = string.Empty;
+		private List<MimeMessage> retrievedMessages = null;
+		private DateTime _yearWhenSent;
+		private string _emailSender = string.Empty;
 		public RetriveMail()
 		{
 			InitializeComponent();
+			//TitleListView.Columns.Add("Email", TitleListView.Width);
 		}
 
 		//login btn
 		private async void Button1_Click(object sender, EventArgs e)
 		{
+			if(TitleListView.Items.Count > 0)
+			{
+				TitleListView.Items.Clear();
+				//TitleListView.Columns.Add("Email", TitleListView.Width);
+			}
+			if(MailInfo.Items.Count > 0)
+			{
+				MailInfo.Items.Clear();
+				emailbody.Text = string.Empty;
+			}
 			var emailYear = SearchYearTextBox.Text.Trim();
 			_yearWhenSent = DateTime.Parse(emailYear, CultureInfo.InvariantCulture);
 			await DownloadWithImap();
@@ -148,6 +159,12 @@ namespace EmailClientSMTP
 		private void TitleListView_SelectedIndexChanged(object sender, EventArgs e) { }
 		private void RetriveMail_Load(object sender, EventArgs e) { }
 		private void MailInfo_SelectedIndexChanged(object sender, EventArgs e){}
+
+		private void button1_Click_1(object sender, EventArgs e)
+		{
+			new StartForm().Show();
+			Close();
+		}
 	}
 }
 

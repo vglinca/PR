@@ -17,9 +17,13 @@ namespace OkHttpClient
     public class OkHttpClient : IHttpClientService
     {
         private IEnumerable<Cookie> _cookies;
+        private readonly string _rootFilePath;
+        private readonly string _rootUrl;
         
         public OkHttpClient()
         {
+            _rootFilePath = @"D:\Универ\3 курс\семестр 2\PR\httpClientFiles";
+            _rootUrl = "https://ok.ru/";
            _cookies = new List<Cookie>();
         }
         
@@ -42,7 +46,7 @@ namespace OkHttpClient
                     httpClient.Timeout = new TimeSpan(0, 0, 60);
                     httpClient.DefaultRequestHeaders.Clear();
             
-                    var request = new HttpRequestMessage(HttpMethod.Options, "https://ok.ru/dk?cmd=MessagesGrowl");
+                    var request = new HttpRequestMessage(HttpMethod.Options, $"{_rootUrl}dk?cmd=MessagesGrowl");
                     request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
                     var response = await httpClient.SendAsync(request);
             
@@ -53,7 +57,8 @@ namespace OkHttpClient
                     {
                         headersBuilder.AppendLine($"{header}");
                     }
-                    await WriteToFile(@"D:\Универ\3 курс\семестр 2\PR\lab3\opt.txt", headersBuilder.ToString());
+                    var path = Path.Combine(_rootFilePath, "opt.txt");
+                    await WriteToFile(path, headersBuilder.ToString());
                 }
             }
         }
@@ -69,7 +74,7 @@ namespace OkHttpClient
                     httpClient.Timeout = new TimeSpan(0, 0, 60);
                     httpClient.DefaultRequestHeaders.Clear();
 
-                    var request = new HttpRequestMessage(HttpMethod.Head, "https://ok.ru/dk?cmd=MessagesGrowl");
+                    var request = new HttpRequestMessage(HttpMethod.Head, $"{_rootUrl}dk?cmd=MessagesGrowl");
                     request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
                     var response = await httpClient.SendAsync(request);
 
@@ -80,7 +85,8 @@ namespace OkHttpClient
                     {
                         headersBuilder.AppendLine($"{header.Key} : {header.Value.FirstOrDefault()}");
                     }
-                    await WriteToFile(@"D:\Универ\3 курс\семестр 2\PR\lab3\headers.txt", headersBuilder.ToString());
+                    var path = Path.Combine(_rootFilePath, "head.txt");
+                    await WriteToFile(path, headersBuilder.ToString());
                 }
             }
         }
@@ -96,7 +102,7 @@ namespace OkHttpClient
                     httpClient.Timeout = new TimeSpan(0,0, 60);
                     httpClient.DefaultRequestHeaders.Clear();
 
-                    var responseMsg = await httpClient.GetAsync("https://ok.ru/dk?cmd=MessagesGrowl");
+                    var responseMsg = await httpClient.GetAsync($"{_rootUrl}dk?cmd=MessagesGrowl");
                     responseMsg.EnsureSuccessStatusCode();
                     var resp = string.Empty;
                     Task task = await responseMsg.Content.ReadAsStreamAsync().ContinueWith(async ts =>
@@ -107,7 +113,8 @@ namespace OkHttpClient
                         }
                     });
 
-                    await WriteToFile(@"D:\Универ\3 курс\семестр 2\PR\lab3\pagecontent.txt", resp);
+                    var path = Path.Combine(_rootFilePath, "pagehtml.txt");
+                    await WriteToFile(path, resp);
                 }
             }
         }
@@ -125,7 +132,7 @@ namespace OkHttpClient
                     var credentials = new Dictionary<string, string>
                     {
                         {"st.posted", "set"},
-                        {"st.originalaction", "https://ok.ru/dk?cmd=AnonymLogin&st.cmd=anonymLogin"},
+                        {"st.originalaction", $"{_rootUrl}dk?cmd=AnonymLogin&st.cmd=anonymLogin"},
                         {"st.fJS", "on"},
                         {"st.st.screenSize", "1536 x 864"},
                         {"st.st.browserSize", "723"},
@@ -137,7 +144,7 @@ namespace OkHttpClient
                     
                     var content = new FormUrlEncodedContent(credentials);
                 
-                    var response = await client.PostAsync("https://www.ok.ru/https", content);
+                    var response = await client.PostAsync($"{_rootUrl}https", content);
 //Request URL: https://www.worldcubeassociation.org/users/sign_in
 //https://www.keft.ru/ajax/keft/login.php
 //Request URL: https://rapidapi.com/auth/login
@@ -163,7 +170,8 @@ namespace OkHttpClient
                         Console.WriteLine($"{c.Name} : {c.Value}");
                         cookiesAsString.AppendLine($"{c.Name} : {c.Value}");
                     }
-                    await WriteToFile(@"D:\Универ\3 курс\семестр 2\PR\lab3\cookies.txt", cookiesAsString.ToString());
+                    var path = Path.Combine(_rootFilePath, "cookies.txt");
+                    await WriteToFile(path, cookiesAsString.ToString());
                 }
             }
         }

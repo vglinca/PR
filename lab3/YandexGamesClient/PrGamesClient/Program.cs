@@ -2,8 +2,7 @@
 using System;
 using System.Net;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using OkHttpClient;
+using System.IO;
 
 // ReSharper disable All
 
@@ -15,11 +14,13 @@ namespace PrGamesClient
 		{
 			var services = new ServiceCollection();
 
-			Console.WriteLine("Enter login: ");
-			var login = Console.ReadLine().ToString();
+			var credentials = await File.ReadAllTextAsync(@"D:\Универ\3 курс\семестр 2\PR\httpClientFiles\credentials.txt");
+			var splitCredentials = credentials.Split(';');
+			//Console.WriteLine("Enter login: ");
+			var login = splitCredentials[0];
 
-			Console.WriteLine("Enter password: ");
-			var password = Console.ReadLine().ToString();
+			//Console.WriteLine("Enter password: ");
+			var password = splitCredentials[1];
 			
 			ConfigureServices(services);
 			var serviceProvider = services.BuildServiceProvider();
@@ -30,8 +31,6 @@ namespace PrGamesClient
 			} catch (Exception e)
 			{
 				Console.WriteLine(e.Message);
-				// var logger = serviceProvider.GetService<ILogger<Program>>();
-				// logger.LogError(e, "An exception happened while running the integration service.");
 			}
 			
 			Console.ReadKey();

@@ -43,12 +43,13 @@
 			this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.emailbody = new System.Windows.Forms.TextBox();
 			this.label5 = new System.Windows.Forms.Label();
 			this.SmtpServerTextBox = new System.Windows.Forms.TextBox();
 			this.label6 = new System.Windows.Forms.Label();
 			this.SearchYearTextBox = new System.Windows.Forms.TextBox();
-			this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.button1 = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// TextBoxEmail
@@ -94,12 +95,12 @@
 			// 
 			// LoginButton
 			// 
-			this.LoginButton.Location = new System.Drawing.Point(85, 477);
+			this.LoginButton.Location = new System.Drawing.Point(61, 477);
 			this.LoginButton.Margin = new System.Windows.Forms.Padding(4);
 			this.LoginButton.Name = "LoginButton";
-			this.LoginButton.Size = new System.Drawing.Size(100, 28);
+			this.LoginButton.Size = new System.Drawing.Size(156, 28);
 			this.LoginButton.TabIndex = 4;
-			this.LoginButton.Text = "LOG IN";
+			this.LoginButton.Text = "Show inbox";
 			this.LoginButton.UseVisualStyleBackColor = true;
 			this.LoginButton.Click += new System.EventHandler(this.Button1_Click);
 			// 
@@ -140,21 +141,21 @@
 			// label4
 			// 
 			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(371, 39);
+			this.label4.Location = new System.Drawing.Point(283, 38);
 			this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(85, 17);
+			this.label4.Size = new System.Drawing.Size(106, 17);
 			this.label4.TabIndex = 7;
-			this.label4.Text = "INBOX MAIL";
+			this.label4.Text = "Retrieved email";
 			// 
 			// email_BTN
 			// 
-			this.email_BTN.Location = new System.Drawing.Point(445, 513);
+			this.email_BTN.Location = new System.Drawing.Point(535, 513);
 			this.email_BTN.Margin = new System.Windows.Forms.Padding(4);
 			this.email_BTN.Name = "email_BTN";
 			this.email_BTN.Size = new System.Drawing.Size(100, 28);
 			this.email_BTN.TabIndex = 8;
-			this.email_BTN.Text = "Show Email";
+			this.email_BTN.Text = "Email Details";
 			this.email_BTN.UseVisualStyleBackColor = true;
 			this.email_BTN.Click += new System.EventHandler(this.email_BTN_Click);
 			// 
@@ -195,6 +196,11 @@
 			// 
 			this.columnHeader4.Text = "DeliveryDate";
 			this.columnHeader4.Width = 152;
+			// 
+			// columnHeader5
+			// 
+			this.columnHeader5.Text = "HasAttachment";
+			this.columnHeader5.Width = 138;
 			// 
 			// emailbody
 			// 
@@ -239,16 +245,22 @@
 			this.SearchYearTextBox.TabIndex = 14;
 			this.SearchYearTextBox.TextChanged += new System.EventHandler(this.PortNumberTextBox_TextChanged);
 			// 
-			// columnHeader5
+			// button1
 			// 
-			this.columnHeader5.Text = "HasAttachment";
-			this.columnHeader5.Width = 138;
+			this.button1.Location = new System.Drawing.Point(325, 513);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(75, 28);
+			this.button1.TabIndex = 15;
+			this.button1.Text = "Back";
+			this.button1.UseVisualStyleBackColor = true;
+			this.button1.Click += new System.EventHandler(this.button1_Click_1);
 			// 
 			// RetriveMail
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1600, 554);
+			this.Controls.Add(this.button1);
 			this.Controls.Add(this.SearchYearTextBox);
 			this.Controls.Add(this.label6);
 			this.Controls.Add(this.SmtpServerTextBox);
@@ -296,5 +308,6 @@
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.TextBox SearchYearTextBox;
 		private System.Windows.Forms.ColumnHeader columnHeader5;
+		private System.Windows.Forms.Button button1;
 	}
 }

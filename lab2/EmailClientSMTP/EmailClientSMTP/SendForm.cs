@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace EmailClientSMTP
@@ -16,8 +17,6 @@ namespace EmailClientSMTP
 		private int _portNumber = default;
 		private bool _isSSL = false;
 		private MailMessage _mailMessage = new MailMessage();
-		//private SmtpClient _smtpClient;
-		//= new SmtpClient("smtp.gmail.com",587);
 		private readonly Regex _regex =
 			new Regex(@"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
 
@@ -29,18 +28,17 @@ namespace EmailClientSMTP
 		{
 			_senderEmail = emailaddress;
 			_senderPassword = password;
-			//new RetriveMail().Show(); this.Hide();
 
 			InitializeComponent();
 		}
 
 		private void SendBtn_Click(object sender, EventArgs e)
 		{
-			//_smtpClient = new SmtpClient(_smtpServer, _portNumber);
-			new Thread(() => SendAsync()).Start();
+			new Thread(async() => await  SendAsync()).Start();
+			//Close();
 		}
 
-		private void SendAsync()
+		private async Task SendAsync()
 		{
 			if (_regex.IsMatch(_senderEmail) && _regex.IsMatch(_receiverEmail))
 			{
@@ -59,7 +57,7 @@ namespace EmailClientSMTP
 							client.UseDefaultCredentials = false;
 							client.Credentials = new NetworkCredential(_senderEmail, _senderPassword);
 							client.DeliveryMethod = SmtpDeliveryMethod.Network;
-							client.Send(_mailMessage);
+							await client.SendMailAsync(_mailMessage);
 							_mailMessage.Dispose();
 							MessageBox.Show("Email sent.");
 						}
@@ -77,7 +75,6 @@ namespace EmailClientSMTP
 					MessageBox.Show($"{ex.Message}");
 					Close();
 					Hide();
-					//new SendForm(ReceiverEmailTextBox.Text, textBox2.Text).Show();
 					new SendForm().Show();
 				}
 			}
@@ -86,10 +83,8 @@ namespace EmailClientSMTP
 				MessageBox.Show($"One or more email addresses are invalid.");
 				Close();
 				Hide();
-				//new SendForm(ReceiverEmailTextBox.Text, textBox2.Text).Show();
 				new SendForm().Show();
 			}
-			Close();
 		}
 
 		//receiver email
@@ -97,7 +92,6 @@ namespace EmailClientSMTP
 		{
 			_receiverEmail = ReceiverEmailTextBox.Text.Trim();
 		}
-
 
 		private void AttachBtn_Click(object sender, EventArgs e)
 		{
@@ -152,6 +146,12 @@ namespace EmailClientSMTP
 		//body
 		private void textBox3_TextChanged(object sender, EventArgs e)
 		{
+		}
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			new StartForm().Show();
+			Close();
 		}
 	}
 }
