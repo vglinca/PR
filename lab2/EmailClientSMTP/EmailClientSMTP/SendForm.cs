@@ -24,13 +24,13 @@ namespace EmailClientSMTP
 		{
 			InitializeComponent();
 		}
-		public SendForm(string emailaddress, string password)
-		{
-			_senderEmail = emailaddress;
-			_senderPassword = password;
+		//public SendForm(string emailaddress, string password)
+		//{
+		//	_senderEmail = emailaddress;
+		//	_senderPassword = password;
 
-			InitializeComponent();
-		}
+		//	InitializeComponent();
+		//}
 
 		private void SendBtn_Click(object sender, EventArgs e)
 		{

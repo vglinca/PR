@@ -39,7 +39,7 @@ namespace OkHttpClient
         {
             var cookieContainer = new CookieContainer();
             cookieContainer.Add( _cookies as CookieCollection);
-            using (var httpClientHandler = new HttpClientHandler {CookieContainer = cookieContainer, SslProtocols = SslProtocols.Tls})
+            using (var httpClientHandler = new HttpClientHandler {CookieContainer = cookieContainer})
             {
                 using (var httpClient = new HttpClient(httpClientHandler))
                 {
@@ -67,7 +67,7 @@ namespace OkHttpClient
         {
             var cookieContainer = new CookieContainer();
             cookieContainer.Add( _cookies as CookieCollection);
-            using (var httpClientHandler = new HttpClientHandler {CookieContainer = cookieContainer, SslProtocols = SslProtocols.Tls})
+            using (var httpClientHandler = new HttpClientHandler {CookieContainer = cookieContainer})
             {
                 using (var httpClient = new HttpClient(httpClientHandler))
                 {
@@ -95,7 +95,7 @@ namespace OkHttpClient
         {
             var cookieContainer = new CookieContainer();
             cookieContainer.Add( _cookies as CookieCollection);
-            using (var httpClientHandler = new HttpClientHandler {CookieContainer = cookieContainer, SslProtocols = SslProtocols.Tls})
+            using (var httpClientHandler = new HttpClientHandler {CookieContainer = cookieContainer})
             {
                 using (var httpClient = new HttpClient(httpClientHandler))
                 {
@@ -121,9 +121,8 @@ namespace OkHttpClient
 
         private async Task LoginAsync(string login, string password)
         {
-            
             var cookieContainer = new CookieContainer();
-            using (var httpClientHandler = new HttpClientHandler {CookieContainer = cookieContainer, SslProtocols = SslProtocols.Tls})
+            using (var httpClientHandler = new HttpClientHandler {CookieContainer = cookieContainer})
             {
                 using(var client = new HttpClient(httpClientHandler))
                 {
@@ -145,11 +144,6 @@ namespace OkHttpClient
                     var content = new FormUrlEncodedContent(credentials);
                 
                     var response = await client.PostAsync($"{_rootUrl}https", content);
-//Request URL: https://www.worldcubeassociation.org/users/sign_in
-//https://www.keft.ru/ajax/keft/login.php
-//Request URL: https://rapidapi.com/auth/login
-//Request URL: https://rutracker.org/forum/login.php
-//Request URL: https://www.ok.ru/https
 
                     response.EnsureSuccessStatusCode();
 

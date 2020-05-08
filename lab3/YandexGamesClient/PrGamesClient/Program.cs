@@ -16,18 +16,13 @@ namespace PrGamesClient
 
 			var credentials = await File.ReadAllTextAsync(@"D:\Универ\3 курс\семестр 2\PR\httpClientFiles\credentials.txt");
 			var splitCredentials = credentials.Split(';');
-			//Console.WriteLine("Enter login: ");
-			var login = splitCredentials[0];
-
-			//Console.WriteLine("Enter password: ");
-			var password = splitCredentials[1];
 			
 			ConfigureServices(services);
 			var serviceProvider = services.BuildServiceProvider();
 			
 			try
 			{
-				await serviceProvider.GetService<IHttpClientService>().RunAsync(login, password);
+				await serviceProvider.GetService<IHttpClientService>().RunAsync(splitCredentials[0], splitCredentials[1]);
 			} catch (Exception e)
 			{
 				Console.WriteLine(e.Message);
